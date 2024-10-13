@@ -7,9 +7,9 @@ import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
     routing {
-        get("/"){
+        get("/") {
 
-            println("URI: ${call.request.uri}")  // '/'
+            println("URI: ${call.request.uri}")
             println("Headers: ${call.request.headers.names()}")
             println("User-Agent: ${call.request.headers["User-Agent"]}")
             println("Accept: ${call.request.headers["Accept"]}")
@@ -20,7 +20,7 @@ fun Application.configureRouting() {
             call.respond("Hello fucking World!")
         }
 
-        get("/notes/{page}"){
+        get("/notes/{page}") {
             call.respondText("You are on page: ${call.parameters["page"]}")
         }
     }
