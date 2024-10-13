@@ -13,4 +13,5 @@ fun main() {
 fun Application.module() {
     configureSecurity()
     configureRouting()
+    contactUsModule()
 }
