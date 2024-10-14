@@ -1,9 +1,12 @@
 package com.dt5gen.plugins
 
 
+
 import io.ktor.http.ContentDisposition
 import io.ktor.http.HttpHeaders
 
+
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.request.receive
 import io.ktor.server.request.uri
@@ -24,12 +27,16 @@ fun Application.configureRouting() {
             println("Name: ${call.request.queryParameters["name"]}")
             println("Email: ${call.request.queryParameters["email"]}")
 
-            call.respond("Hello fucking World!")
+            //call.respond("Hello fucking World!")
+            val responseObject = UserResponse("Alex", "1r@ya.netu")
+            call.respond(responseObject)
+            call.respondText("Something went wrong!", status = HttpStatusCode.NotFound)
         }
 
         get("/notes/{page}") {
             call.respondText("You are on page: ${call.parameters["page"]}")
         }
+
 
         get("/download/1") {
             val file = File("/Users/marin/IdeaProjects/ktor-app/files/logo BBTTR2.png")
@@ -55,6 +62,12 @@ fun Application.configureRouting() {
                 ).toString()
             )
             call.respondFile(file2)
+
+        get("/headers") {
+            call.response.headers.append("server_name", "Ktor Test Server App")
+            call.response.headers.append("Asian_girl", "I love them")
+            call.respondText("HEADERS ATTACHED")
+
         }
 
         post("/login") {
@@ -70,4 +83,10 @@ data class UserInfo(
     val name: String,
     val email: String,
     val password: String
+)
+
+@Serializable
+data class UserResponse(
+    val name: String,
+    val email: String,
 )
