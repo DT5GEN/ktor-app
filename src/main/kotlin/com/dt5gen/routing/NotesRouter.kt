@@ -12,10 +12,12 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
+import org.ktorm.dsl.eq
 import org.ktorm.dsl.from
 import org.ktorm.dsl.insert
 import org.ktorm.dsl.map
 import org.ktorm.dsl.select
+import org.ktorm.dsl.where
 
 fun Application.notesRoutes() {
 
@@ -51,6 +53,12 @@ fun Application.notesRoutes() {
                     data = "Failed to insert ${request.note}!"
                 ))
             }
+        }
+
+        get("/notes/{id}") {
+            val id = call.parameters["id"] ?.toInt() ?: -1
+            val note = db.from(NotesEntity).select()
+            .where { NotesEntity.id eq id }
         }
     }
 }
