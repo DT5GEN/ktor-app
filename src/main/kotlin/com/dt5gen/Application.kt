@@ -1,5 +1,6 @@
 package com.dt5gen
 
+import com.dt5gen.data.models.NotesEntity
 import com.dt5gen.plugins.*
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
@@ -7,6 +8,9 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import org.ktorm.database.Database
+import org.ktorm.dsl.delete
+import org.ktorm.dsl.eq
+import org.ktorm.dsl.update
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
@@ -26,6 +30,15 @@ fun Application.module(testing: Boolean = false) {
         user = "postgres",
         password = "my_@_password"
     )
+
+//    database.update(NotesEntity){
+//        set(it.note, "Practice Ktor and English!!!")
+//        where { it.id eq 3 }
+//    }
+
+    database.delete(NotesEntity){
+        it.id eq 4
+    }
 
     configureSecurity()
     configureRouting()
