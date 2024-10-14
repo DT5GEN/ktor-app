@@ -26,23 +26,6 @@ fun Application.module(testing: Boolean = false) {
         json()
     }
 
-
-    val database = Database.connect(
-        url = "jdbc:postgresql://localhost:5432/notes_db",
-        driver = "org.postgresql.Driver",
-        user = "postgres",
-        password = "my_@_password"
-    )
-
-    val notes = database
-        .from(NotesEntity)
-        .select()
-        .map { row ->  // Используем map для обработки каждой строки
-            println("${row[NotesEntity.id]} : ${row[NotesEntity.note]}")
-        }
-
-
-
     configureSecurity()
     configureRouting()
     contactUsModule()
