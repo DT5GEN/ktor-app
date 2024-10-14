@@ -2,7 +2,7 @@ package com.dt5gen
 
 import com.dt5gen.entities.NotesEntity
 import com.dt5gen.plugins.*
-import com.dt5gen.services.UserService
+import com.dt5gen.services.SomethingService
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -43,11 +43,17 @@ fun Application.module(testing: Boolean = false) {
     }
 
     database.insert(NotesEntity){
-        set(it.note, "Practice KtORM")
+        set(it.note, "Practice Kotlin")
+    }
+ database.insert(NotesEntity){
+        set(it.note, "Practice Java")
+    }
+ database.insert(NotesEntity){
+        set(it.note, "Practice Practice and one more Practice everyday")
     }
 
     // Создание экземпляра сервиса
-    val userService = UserService(database)
+    val userService = SomethingService(database)
 
     // Вызов функции для получения всех пользователей
     val users = userService.fetchAllUsers()
@@ -55,6 +61,12 @@ fun Application.module(testing: Boolean = false) {
     println(users)
     println(users)
     println(users)
+
+    val notes = userService.fetchAllNotes()
+    println(notes)
+    println(notes)
+    println(notes)
+
 
 
 
