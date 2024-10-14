@@ -1,6 +1,5 @@
 package com.dt5gen.data.models
 
-
 import org.ktorm.schema.Table
 import org.ktorm.schema.int
 import org.ktorm.schema.varchar

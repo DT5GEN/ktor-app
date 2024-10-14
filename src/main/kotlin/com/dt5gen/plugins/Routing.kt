@@ -1,5 +1,6 @@
 package com.dt5gen.plugins
 
+import com.dt5gen.routing.notesRoutes
 import io.ktor.http.ContentDisposition
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
@@ -73,6 +74,9 @@ fun Application.configureRouting() {
             }
         }
     }
+
+    notesRoutes()
+
 }
     @Serializable
     data class UserInfo(
