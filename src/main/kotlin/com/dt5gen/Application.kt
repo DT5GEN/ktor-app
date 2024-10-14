@@ -1,22 +1,49 @@
 package com.dt5gen
 
-
 import com.dt5gen.plugins.*
+import com.dt5gen.services.UserService
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-
+import org.ktorm.database.Database
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-        install(ContentNegotiation) {
-            json()
-        }
-        configureSecurity()
-        configureRouting()
-        contactUsModule()
-    }.start(wait = true)
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
+        .start(wait = true)
 }
 
+@Suppress("unused")
+@JvmOverloads
+fun Application.module(testing: Boolean = false) {
+
+
+    install(ContentNegotiation) {
+        json()
+    }
+
+
+    val database = Database.connect(
+        url = "jdbc:postgresql://localhost:5432/notes_db",
+        driver = "org.postgresql.Driver",
+        user = "postgres",
+        password = "my_@_password"
+    )
+
+    // Создание экземпляра сервиса
+    val userService = UserService(database)
+
+    // Вызов функции для получения всех пользователей
+    val users = userService.fetchAllUsers()
+    println(users)
+    println(users)
+    println(users)
+    println(users)
+
+
+    configureSecurity()
+    configureRouting()
+    contactUsModule()
+
+}

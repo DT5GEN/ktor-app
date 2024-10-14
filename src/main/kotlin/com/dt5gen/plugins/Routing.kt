@@ -1,11 +1,7 @@
 package com.dt5gen.plugins
 
-
-
 import io.ktor.http.ContentDisposition
 import io.ktor.http.HttpHeaders
-
-
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.request.receive
@@ -77,7 +73,6 @@ fun Application.configureRouting() {
             }
         }
     }
-
 }
     @Serializable
     data class UserInfo(
