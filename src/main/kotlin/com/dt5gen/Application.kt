@@ -20,16 +20,12 @@ fun Application.module(testing: Boolean = false) {
         json()
     }
 
-
     val database = Database.connect(
         url = "jdbc:postgresql://localhost:5432/notes_db",
         driver = "org.postgresql.Driver",
         user = "postgres",
         password = "my_@_password"
     )
-
-
-
 
     configureSecurity()
     configureRouting()
