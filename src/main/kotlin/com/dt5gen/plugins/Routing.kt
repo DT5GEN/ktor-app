@@ -63,30 +63,32 @@ fun Application.configureRouting() {
             )
             call.respondFile(file2)
 
-        get("/headers") {
-            call.response.headers.append("server_name", "Ktor Test Server App")
-            call.response.headers.append("Asian_girl", "I love them")
-            call.respondText("HEADERS ATTACHED")
+            get("/headers") {
+                call.response.headers.append("server_name", "Ktor Test Server App")
+                call.response.headers.append("Asian_girl", "I love them")
+                call.respondText("HEADERS ATTACHED")
 
-        }
+            }
 
-        post("/login") {
-            val userInfo = call.receive<UserInfo>()
-            println(userInfo)
-            call.respondText("You are logged in")
+            post("/login") {
+                val userInfo = call.receive<UserInfo>()
+                println(userInfo)
+                call.respondText("You are logged in")
+            }
         }
     }
+
 }
+    @Serializable
+    data class UserInfo(
+        val name: String,
+        val email: String,
+        val password: String
+    )
 
-@Serializable
-data class UserInfo(
-    val name: String,
-    val email: String,
-    val password: String
-)
+    @Serializable
+    data class UserResponse(
+        val name: String,
+        val email: String
+    )
 
-@Serializable
-data class UserResponse(
-    val name: String,
-    val email: String,
-)
