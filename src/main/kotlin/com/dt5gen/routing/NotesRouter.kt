@@ -95,7 +95,7 @@ fun Application.notesRoutes() {
             val id = call.parameters["id"]?.toInt() ?: -1
             val updateNote = call.receive<NoteRequest>()
 
-           val rowsEffected = db.update(NotesEntity) {
+            val rowsEffected = db.update(NotesEntity) {
                 set(it.note, updateNote.note)
                 where { it.id eq id }
             }
@@ -108,9 +108,7 @@ fun Application.notesRoutes() {
                         data = "Values has been successfully updated!"
                     )
                 )
-            }
-
-            else{
+            } else {
                 call.respond(
                     HttpStatusCode.BadRequest,
                     NoteResponse(
