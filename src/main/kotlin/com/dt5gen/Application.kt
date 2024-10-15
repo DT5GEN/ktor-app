@@ -1,6 +1,5 @@
 package com.dt5gen
 
-
 import com.dt5gen.db.DatabaseConnection
 import com.dt5gen.plugins.*
 import io.ktor.serialization.kotlinx.json.json
