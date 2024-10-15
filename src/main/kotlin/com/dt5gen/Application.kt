@@ -4,6 +4,8 @@ import com.dt5gen.db.DatabaseConnection
 import com.dt5gen.plugins.*
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
+import io.ktor.server.auth.Authentication
+import io.ktor.server.auth.jwt.jwt
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
@@ -18,6 +20,11 @@ fun Application.module() {
     DatabaseConnection.createUsersTable()
     install(ContentNegotiation) {
         json()
+    }
+    install(Authentication){
+        jwt{
+
+        }
     }
 
     configureSecurity()

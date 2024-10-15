@@ -49,6 +49,8 @@ dependencies {
     implementation("org.ktorm:ktorm-support-postgresql:4.1.1")
     implementation("io.ktor:ktor-server-html-builder:3.0.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21")
+    implementation("io.ktor:ktor-server-auth-jwt-jvm:3.0.0")
+
 
 
     implementation("org.mindrot:jbcrypt:0.4")
