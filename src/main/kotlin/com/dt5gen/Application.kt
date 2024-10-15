@@ -14,7 +14,7 @@ fun main() {
         .start(wait = true)
 }
 
-fun Application.module(testing: Boolean = false) {
+fun Application.module() {
 
     DatabaseConnection.createUsersTable()
     install(ContentNegotiation) {
