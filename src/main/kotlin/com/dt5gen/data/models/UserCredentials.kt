@@ -7,7 +7,7 @@ import org.mindrot.jbcrypt.BCrypt
 data class UserCredentials(
     val username: String,
     val password: String
-){
+) {
     fun passwordHasher(): String {
         return BCrypt.hashpw(password, BCrypt.gensalt())
     }
