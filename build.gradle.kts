@@ -51,6 +51,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21")
 
 
+    implementation("org.mindrot:jbcrypt:0.4")
 
 
 
