@@ -3,7 +3,9 @@ package com.dt5gen
 
 import com.dt5gen.data.models.NotesEntity
 import com.dt5gen.data.models.NotesEntity.note
+import com.dt5gen.db.DatabaseConnection
 import com.dt5gen.plugins.*
+import com.dt5gen.services.SomethingService
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -21,7 +23,7 @@ fun main() {
 
 fun Application.module(testing: Boolean = false) {
 
-
+    DatabaseConnection.createUsersTable()
     install(ContentNegotiation) {
         json()
     }
