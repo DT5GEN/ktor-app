@@ -9,6 +9,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
+import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
@@ -17,6 +18,7 @@ import org.ktorm.dsl.eq
 import org.ktorm.dsl.from
 import org.ktorm.dsl.insert
 import org.ktorm.dsl.map
+import org.ktorm.dsl.delete
 import org.ktorm.dsl.select
 import org.ktorm.dsl.update
 import org.ktorm.dsl.where
@@ -95,7 +97,7 @@ fun Application.notesRoutes() {
             val id = call.parameters["id"]?.toInt() ?: -1
             val updateNote = call.receive<NoteRequest>()
 
-           val rowsEffected = db.update(NotesEntity) {
+            val rowsEffected = db.update(NotesEntity) {
                 set(it.note, updateNote.note)
                 where { it.id eq id }
             }
@@ -108,9 +110,7 @@ fun Application.notesRoutes() {
                         data = "Values has been successfully updated!"
                     )
                 )
-            }
-
-            else{
+            } else {
                 call.respond(
                     HttpStatusCode.BadRequest,
                     NoteResponse(
@@ -121,6 +121,30 @@ fun Application.notesRoutes() {
             }
         }
 
+        delete("/notes/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: -1
+            val rowsEffected = db.delete(NotesEntity) {
+                it.id eq id
+            }
+
+            if (rowsEffected == 1) {
+                call.respond(
+                    HttpStatusCode.OK,
+                    NoteResponse(
+                        success = true,
+                        data = "Values has been successfully deleted!"
+                    )
+                )
+            } else {
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    NoteResponse(
+                        success = false,
+                        data = "Note  failed to delete!"
+                    )
+                )
+            }
+        }
 
     }
 }
