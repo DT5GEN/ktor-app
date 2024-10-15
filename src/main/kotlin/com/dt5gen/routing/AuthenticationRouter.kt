@@ -5,8 +5,11 @@ import com.dt5gen.data.models.UserCredentials
 import com.dt5gen.data.models.UserLoginable
 import com.dt5gen.data.models.UsersEntity
 import com.dt5gen.db.DatabaseConnection
+import com.dt5gen.utils.TokenManager
+import com.typesafe.config.ConfigFactory
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
+import io.ktor.server.config.HoconApplicationConfig
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.post
@@ -22,6 +25,7 @@ import org.mindrot.jbcrypt.BCrypt
 fun Application.authenticationRoutes() {
 
     val db = DatabaseConnection.database
+    val tokenManager = TokenManager(HoconApplicationConfig(ConfigFactory.load()))
 
     routing {
         post("/register") {
@@ -115,9 +119,10 @@ fun Application.authenticationRoutes() {
 
             }
 
+            val token = tokenManager.generateJWToken(user)
             call.respond(
                 HttpStatusCode.OK,
-                NoteResponse(success = true, data = "User has been  successfully logged in")
+                NoteResponse(success = true, data = token)
             )
 
         }
