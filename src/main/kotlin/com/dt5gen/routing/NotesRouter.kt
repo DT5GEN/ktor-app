@@ -59,6 +59,31 @@ fun Application.notesRoutes() {
             val id = call.parameters["id"] ?.toInt() ?: -1
             val note = db.from(NotesEntity).select()
             .where { NotesEntity.id eq id }
+                .map {
+                    val id = it[NotesEntity.id]!!
+                    val note = it[NotesEntity.note]
+                    Note(id = id, note = note.toString())
+                     }.firstOrNull()
+            if (note == null) {
+                call.respond(
+                    HttpStatusCode.NotFound,
+                    NoteResponse(
+                        success = false,
+                        data = "No note found for id = $id!"
+                    )
+                )
+
+            }
+            else {
+                call.respond(
+                    HttpStatusCode.OK,
+                    NoteResponse(
+                        success = true,
+                        data = note
+                    )
+                )
+
+            }
         }
     }
 }

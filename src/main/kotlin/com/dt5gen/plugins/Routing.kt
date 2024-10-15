@@ -30,9 +30,9 @@ fun Application.configureRouting() {
             call.respondText("Something went wrong!", status = HttpStatusCode.NotFound)
         }
 
-        get("/notes/{page}") {
-            call.respondText("You are on page: ${call.parameters["page"]}")
-        }
+//        get("/notes/{page}") {
+//            call.respondText("You are on page: ${call.parameters["page"]}")
+//        }
 
 
         get("/download/1") {
