@@ -9,22 +9,6 @@ import org.ktorm.dsl.select
 
 class SomethingService(private val database: Database) {
 
-    // Function for create new table
-
-    fun createUsersTable() {
-        database.useConnection { connection ->
-            val statement = connection.createStatement()
-            statement.executeUpdate(
-                """
-                CREATE TABLE IF NOT EXISTS users (
-                    id SERIAL PRIMARY KEY,
-                    username VARCHAR(100) NOT NULL,
-                    password VARCHAR(500) NOT NULL
-                );
-            """.trimIndent()
-            )
-            statement.close()
-        }
 
         // Функция для получения всех пользователей из таблицы
         fun fetchAllUsers(): List<UserModel> {
@@ -53,6 +37,6 @@ class SomethingService(private val database: Database) {
                 }
         }
 
-    }
+
 }
 
