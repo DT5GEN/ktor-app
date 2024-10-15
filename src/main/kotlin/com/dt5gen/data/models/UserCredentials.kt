@@ -12,5 +12,9 @@ data class UserCredentials(
         return BCrypt.hashpw(password, BCrypt.gensalt())
     }
 
+    fun isValidCredentials(): Boolean {
+        return username.length >= 4 && password.length >= 6
+    }
+
 }
 
